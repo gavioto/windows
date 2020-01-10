@@ -4,17 +4,17 @@
       "communicator": "winrm",
       "disk_size": "{{user `disk_size`}}",
       "floppy_files": [
-        "floppy/00-run-all-scripts.cmd",
-        "floppy/01-install-wget.cmd",
-        "floppy/_download.cmd",
-        "floppy/_packer_config.cmd",
-        "floppy/disablewinupdate.bat",
-        "floppy/fixnetwork.ps1",
-        "floppy/install-winrm.cmd",
-        "floppy/passwordchange.bat",
-        "floppy/powerconfig.bat",
-        "floppy/win2008r2-web/Autounattend.xml",
-        "floppy/zz-start-sshd.cmd"
+        "{{template_dir}}/floppy/00-run-all-scripts.cmd",
+        "{{template_dir}}/floppy/01-install-wget.cmd",
+        "{{template_dir}}/floppy/_download.cmd",
+        "{{template_dir}}/floppy/_packer_config.cmd",
+        "{{template_dir}}/floppy/disablewinupdate.bat",
+        "{{template_dir}}/floppy/fixnetwork.ps1",
+        "{{template_dir}}/floppy/install-winrm.cmd",
+        "{{template_dir}}/floppy/passwordchange.bat",
+        "{{template_dir}}/floppy/powerconfig.bat",
+        "{{template_dir}}/floppy/win2008r2-web/Autounattend.xml",
+        "{{template_dir}}/floppy/zz-start-transports.cmd"
       ],
       "guest_os_type": "windows7srv-64",
       "headless": "{{ user `headless` }}",
@@ -25,10 +25,11 @@
       "tools_upload_flavor": "windows",
       "type": "vmware-iso",
       "vm_name": "win2008r2-web",
+      "version": "{{ user `hw_version` }}",
+      "cpus": "{{ user `cpus` }}",
+      "memory": "{{ user `memory` }}",
       "vmx_data": {
-        "cpuid.coresPerSocket": "1",
-        "memsize": "1536",
-        "numvcpus": "1"
+        "cpuid.coresPerSocket": "1"
       },
       "winrm_password": "vagrant",
       "winrm_timeout": "10000s",
@@ -38,19 +39,21 @@
       "communicator": "winrm",
       "disk_size": "{{user `disk_size`}}",
       "floppy_files": [
-        "floppy/00-run-all-scripts.cmd",
-        "floppy/01-install-wget.cmd",
-        "floppy/_download.cmd",
-        "floppy/_packer_config.cmd",
-        "floppy/disablewinupdate.bat",
-        "floppy/fixnetwork.ps1",
-        "floppy/install-winrm.cmd",
-        "floppy/oracle-cert.cer",
-        "floppy/passwordchange.bat",
-        "floppy/powerconfig.bat",
-        "floppy/win2008r2-web/Autounattend.xml",
-        "floppy/zz-start-sshd.cmd"
+        "{{template_dir}}/floppy/00-run-all-scripts.cmd",
+        "{{template_dir}}/floppy/01-install-wget.cmd",
+        "{{template_dir}}/floppy/_download.cmd",
+        "{{template_dir}}/floppy/_packer_config.cmd",
+        "{{template_dir}}/floppy/disablewinupdate.bat",
+        "{{template_dir}}/floppy/fixnetwork.ps1",
+        "{{template_dir}}/floppy/install-winrm.cmd",
+        "{{template_dir}}/floppy/oracle-cert.cer",
+        "{{template_dir}}/floppy/passwordchange.bat",
+        "{{template_dir}}/floppy/powerconfig.bat",
+        "{{template_dir}}/floppy/win2008r2-web/Autounattend.xml",
+        "{{template_dir}}/floppy/zz-start-transports.cmd"
       ],
+      "guest_additions_mode": "attach",
+      "guest_additions_url": "{{user `guest_additions_url`}}",
       "guest_os_type": "Windows2008_64",
       "hard_drive_interface": "sata",
       "headless": "{{ user `headless` }}",
@@ -59,20 +62,8 @@
       "iso_url": "{{ user `iso_url` }}",
       "shutdown_command": "{{ user `shutdown_command`}}",
       "type": "virtualbox-iso",
-      "vboxmanage": [
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--memory",
-          "1536"
-        ],
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--cpus",
-          "1"
-        ]
-      ],
+      "cpus": "{{ user `cpus` }}",
+      "memory": "{{ user `memory` }}",
       "vm_name": "win2008r2-web",
       "winrm_password": "vagrant",
       "winrm_timeout": "10000s",
@@ -82,40 +73,56 @@
       "communicator": "winrm",
       "disk_size": "{{user `disk_size`}}",
       "floppy_files": [
-        "floppy/00-run-all-scripts.cmd",
-        "floppy/01-install-wget.cmd",
-        "floppy/_download.cmd",
-        "floppy/_packer_config.cmd",
-        "floppy/disablewinupdate.bat",
-        "floppy/fixnetwork.ps1",
-        "floppy/install-winrm.cmd",
-        "floppy/passwordchange.bat",
-        "floppy/powerconfig.bat",
-        "floppy/win2008r2-web/Autounattend.xml",
-        "floppy/zz-start-sshd.cmd"
+        "{{template_dir}}/floppy/00-run-all-scripts.cmd",
+        "{{template_dir}}/floppy/01-install-wget.cmd",
+        "{{template_dir}}/floppy/_download.cmd",
+        "{{template_dir}}/floppy/_packer_config.cmd",
+        "{{template_dir}}/floppy/disablewinupdate.bat",
+        "{{template_dir}}/floppy/fixnetwork.ps1",
+        "{{template_dir}}/floppy/install-winrm.cmd",
+        "{{template_dir}}/floppy/passwordchange.bat",
+        "{{template_dir}}/floppy/powerconfig.bat",
+        "{{template_dir}}/floppy/win2008r2-web/Autounattend.xml",
+        "{{template_dir}}/floppy/zz-start-transports.cmd"
       ],
       "guest_os_type": "win-2008",
-      "headless": "{{ user `headless` }}",
       "iso_checksum": "{{ user `iso_checksum` }}",
       "iso_checksum_type": "sha1",
       "iso_url": "{{ user `iso_url` }}",
       "parallels_tools_flavor": "win",
-      "prlctl": [
-        [
-          "set",
-          "{{.Name}}",
-          "--memsize",
-          "1536"
-        ],
-        [
-          "set",
-          "{{.Name}}",
-          "--cpus",
-          "1"
-        ]
-      ],
+      "cpus": "{{ user `cpus` }}",
+      "memory": "{{ user `memory` }}",
       "shutdown_command": "{{ user `shutdown_command`}}",
       "type": "parallels-iso",
+      "vm_name": "win2008r2-web",
+      "winrm_password": "vagrant",
+      "winrm_timeout": "10000s",
+      "winrm_username": "vagrant"
+    },
+    {
+      "communicator": "winrm",
+      "cpus": "{{ user `cpus` }}",
+      "disk_size": "{{user `disk_size`}}",
+      "floppy_files": [
+        "{{template_dir}}/floppy/00-run-all-scripts.cmd",
+        "{{template_dir}}/floppy/01-install-wget.cmd",
+        "{{template_dir}}/floppy/_download.cmd",
+        "{{template_dir}}/floppy/_packer_config.cmd",
+        "{{template_dir}}/floppy/disablewinupdate.bat",
+        "{{template_dir}}/floppy/fixnetwork.ps1",
+        "{{template_dir}}/floppy/install-winrm.cmd",
+        "{{template_dir}}/floppy/passwordchange.bat",
+        "{{template_dir}}/floppy/powerconfig.bat",
+        "{{template_dir}}/floppy/win2008r2-web/Autounattend.xml",
+        "{{template_dir}}/floppy/zz-start-transports.cmd"
+      ],
+      "headless": "{{ user `headless` }}",
+      "iso_checksum": "{{ user `iso_checksum` }}",
+      "iso_checksum_type": "sha1",
+      "iso_url": "{{ user `iso_url` }}",
+      "memory": "{{ user `memory` }}",
+      "shutdown_command": "{{ user `shutdown_command`}}",
+      "type": "hyperv-iso",
       "vm_name": "win2008r2-web",
       "winrm_password": "vagrant",
       "winrm_timeout": "10000s",
@@ -128,31 +135,36 @@
       "keep_input_artifact": false,
       "output": "box/{{.Provider}}/win2008r2-web-{{user `cm`}}{{user `cm_version`}}-{{user `version`}}.box",
       "type": "vagrant",
-      "vagrantfile_template": "tpl/vagrantfile-win2008r2-web.tpl"
+      "vagrantfile_template": "{{template_dir}}/tpl/vagrantfile-win2008r2-web.tpl"
     }
   ],
   "provisioners": [
     {
       "environment_vars": [
         "CM={{user `cm`}}",
+        "CM_OPTIONS={{user `cm_options`}}",
         "CM_VERSION={{user `cm_version`}}",
         "UPDATE={{user `update`}}"
       ],
       "scripts": [
-        "script/vagrant.bat",
-        "script/cmtool.bat",
-        "script/vmtool.bat",
-        "script/clean.bat",
-        "script/ultradefrag.bat",
-        "script/uninstall-7zip.bat",
-        "script/sdelete.bat"
+        "{{template_dir}}/script/vagrant.bat",
+        "{{template_dir}}/script/cmtool.bat",
+        "{{template_dir}}/script/vmtool.bat",
+        "{{template_dir}}/script/clean.bat",
+        "{{template_dir}}/script/ultradefrag.bat",
+        "{{template_dir}}/script/uninstall-7zip.bat",
+        "{{template_dir}}/script/sdelete.bat"
       ],
       "type": "windows-shell"
     }
   ],
   "variables": {
+    "cpus": "2",
+    "memory": "2048",
+    "guest_additions_url": "",
     "cm": "chef",
     "cm_version": "",
+    "hw_version": "7",
     "disk_size": "40960",
     "headless": "false",
     "iso_checksum": "7e7e9425041b3328ccf723a0855c2bc4f462ec57",

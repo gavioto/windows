@@ -71,14 +71,26 @@ the output of `make list` accordingly.
 Possible values for the CM variable are:
 
 * `nocm` - No configuration management tool
-* `chef` - Install Chef
+* `chef` - Install Chef Client
+* `chefdk` - Install Chef Development Kit
+* `chef-workstation` - Install Chef Workstation
 * `puppet` - Install Puppet
 * `salt`  - Install Salt
 
-You can also specify a variable `CM_VERSION`, if supported by the
-configuration management tool, to override the default of `latest`.
-The value of `CM_VERSION` should have the form `x.y` or `x.y.z`,
-such as `CM_VERSION := 11.12.4`
+You can also specify a variable `CM_VERSION` for all configuration management
+tools to override the default of `latest`. The value of `CM_VERSION` should
+have the form `x.y` or `x.y.z`, such as `CM_VERSION := 11.12.4`
+
+It is also possible to specify a `HW_VERSION` if a specific hardware
+version is to be used for build. This is commonly used to provide
+compatibility with newer versions of VMware Workstation. For example,
+you may indicate version 14 of Workstation: `HW_VERSION := 14`.
+
+For configuration management tools (such as Salt), you can specify a
+variable `CM_OPTIONS`. This variable will be passed to the installer for
+the configuration management tool. For information on possible values
+please read the documentation for the respective configuration management
+tool.
 
 Another use for `Makefile.local` is to override the default locations
 for the Windows install ISO files.
@@ -113,3 +125,14 @@ For Windows, the ISO path variables are:
 You can also override these setting, such as with
 
     WIN81_X64_PRO := file:///Volumes/MSDN/en_windows_8.1_professional_vl_with_update_x64_dvd_4065194.iso
+
+### Acknowledgments
+
+[Parallels](http://www.parallels.com/) provides a Business Edition license of
+their software to run on the basebox build farm.
+
+<img src="http://www.parallels.com/fileadmin/images/corporate/brand-assets/images/logo-knockout-on-red.jpg" width="80">
+
+[SmartyStreets](http://www.smartystreets.com) is providing basebox hosting for the boxcutter project.
+
+<img src="https://d79i1fxsrar4t.cloudfront.net/images/brand/smartystreets.65887aa3.png" width="320">
